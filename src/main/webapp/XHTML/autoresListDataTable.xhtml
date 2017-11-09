@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableAutores" header="AutoresData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{autoresView.data}" var="autores"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{autores.idautor}" sortBy="#{autores.idautor}" >
+										 <f:facet name="header">
+										<h:outputText value="idautor"/>
+										</f:facet>
+										 <h:outputText value="#{autores.idautor}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{autores.anofallecimiento}" sortBy="#{autores.anofallecimiento}" >
+										 <f:facet name="header">
+										<h:outputText value="Anofallecimiento"/>
+										</f:facet>
+										 <h:outputText value="#{autores.anofallecimiento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{autores.anonacimiento}" sortBy="#{autores.anonacimiento}" >
+										 <f:facet name="header">
+										<h:outputText value="Anonacimiento"/>
+										</f:facet>
+										 <h:outputText value="#{autores.anonacimiento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{autores.autor}" sortBy="#{autores.autor}" >
+										 <f:facet name="header">
+										<h:outputText value="Autor"/>
+										</f:facet>
+										 <h:outputText value="#{autores.autor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{autores.estilo}" sortBy="#{autores.estilo}" >
+										 <f:facet name="header">
+										<h:outputText value="Estilo"/>
+										</f:facet>
+										 <h:outputText value="#{autores.estilo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{autores.lugarnaci}" sortBy="#{autores.lugarnaci}" >
+										 <f:facet name="header">
+										<h:outputText value="Lugarnaci"/>
+										</f:facet>
+										 <h:outputText value="#{autores.lugarnaci}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{autores.vida}" sortBy="#{autores.vida}" >
+										 <f:facet name="header">
+										<h:outputText value="Vida"/>
+										</f:facet>
+										 <h:outputText value="#{autores.vida}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{autores.idepoca_Epoca}" sortBy="#{autores.idepoca_Epoca}" >
+										 <f:facet name="header">
+										<h:outputText value="Idepoca_Epoca"/>
+										</f:facet>
+										 <h:outputText value="#{autores.idepoca_Epoca}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogAutores"
+										actionListener="#{autoresView.action_edit}">
+										<f:attribute name="selectedAutores" value="#{autores}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{autoresView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedAutores" value="#{autores}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{autoresView.action_new()}" update=":dialogAutores" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogAutores" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{autoresView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelAutores" header="Autores">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdautor" value="Idautor"/>
+									 <p:inputText id="txtIdautor" binding="#{autoresView.txtIdautor}">
+									 <p:ajax update=":dialogAutores" listener="#{autoresView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAnofallecimiento" value=" Anofallecimiento"/>
+									<p:inputText id="txtAnofallecimiento" disabled="true" binding="#{autoresView.txtAnofallecimiento}"/>
+																		<h:outputText id="msgAnonacimiento" value=" Anonacimiento"/>
+									<p:inputText id="txtAnonacimiento" disabled="true" binding="#{autoresView.txtAnonacimiento}"/>
+																		<h:outputText id="msgAutor" value=" Autor"/>
+									<p:inputText id="txtAutor" disabled="true" binding="#{autoresView.txtAutor}"/>
+																		<h:outputText id="msgEstilo" value=" Estilo"/>
+									<p:inputText id="txtEstilo" disabled="true" binding="#{autoresView.txtEstilo}"/>
+																		<h:outputText id="msgLugarnaci" value=" Lugarnaci"/>
+									<p:inputText id="txtLugarnaci" disabled="true" binding="#{autoresView.txtLugarnaci}"/>
+																		<h:outputText id="msgVida" value=" Vida"/>
+									<p:inputText id="txtVida" disabled="true" binding="#{autoresView.txtVida}"/>
+																		<h:outputText id="msgIdepoca_Epoca" value=" Idepoca_Epoca"/>
+									<p:inputText id="txtIdepoca_Epoca" disabled="true" binding="#{autoresView.txtIdepoca_Epoca}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{autoresView.btnSave}" value="Save" action="#{autoresView.action_save()}" update=":dialogAutores :frm:panelDataTableAutores" />
+									<p:commandButton id="btnClear" value="Clear" action="#{autoresView.action_clear()}" update=":dialogAutores" />
+									<p:commandButton id="btnExit" value="Exit" action="#{autoresView.action_closeDialog()}" update=":dialogAutores" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

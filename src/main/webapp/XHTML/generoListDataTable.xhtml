@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGenero" header="GeneroData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{generoView.data}" var="genero"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{genero.idgenero}" sortBy="#{genero.idgenero}" >
+										 <f:facet name="header">
+										<h:outputText value="idgenero"/>
+										</f:facet>
+										 <h:outputText value="#{genero.idgenero}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{genero.genero}" sortBy="#{genero.genero}" >
+										 <f:facet name="header">
+										<h:outputText value="Genero"/>
+										</f:facet>
+										 <h:outputText value="#{genero.genero}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGenero"
+										actionListener="#{generoView.action_edit}">
+										<f:attribute name="selectedGenero" value="#{genero}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{generoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGenero" value="#{genero}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{generoView.action_new()}" update=":dialogGenero" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGenero" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{generoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGenero" header="Genero">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdgenero" value="Idgenero"/>
+									 <p:inputText id="txtIdgenero" binding="#{generoView.txtIdgenero}">
+									 <p:ajax update=":dialogGenero" listener="#{generoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgGenero" value=" Genero"/>
+									<p:inputText id="txtGenero" disabled="true" binding="#{generoView.txtGenero}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{generoView.btnSave}" value="Save" action="#{generoView.action_save()}" update=":dialogGenero :frm:panelDataTableGenero" />
+									<p:commandButton id="btnClear" value="Clear" action="#{generoView.action_clear()}" update=":dialogGenero" />
+									<p:commandButton id="btnExit" value="Exit" action="#{generoView.action_closeDialog()}" update=":dialogGenero" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/11/2017 05:00:25 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="demo.modelo.Epoca" table="epoca" catalog="bd_persona" optimistic-lock="version">
+        <id name="idepoca" type="java.lang.Integer">
+            <column name="idepoca" />
+            <generator class="assigned" />
+        </id>
+        <property name="epoca" type="java.lang.String">
+            <column name="epoca" not-null="true" unique="true" />
+        </property>
+        <property name="tiempocompren" type="java.lang.String">
+            <column name="tiempocompren" not-null="true" />
+        </property>
+        <set name="obrases" table="obras" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="refepoca" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="demo.modelo.Obras" />
+        </set>
+        <set name="autoreses" table="autores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="refepoca" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="demo.modelo.Autores" />
+        </set>
+    </class>
+</hibernate-mapping>

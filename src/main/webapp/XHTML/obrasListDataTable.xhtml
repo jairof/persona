@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableObras" header="ObrasData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{obrasView.data}" var="obras"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{obras.idobra}" sortBy="#{obras.idobra}" >
+										 <f:facet name="header">
+										<h:outputText value="idobra"/>
+										</f:facet>
+										 <h:outputText value="#{obras.idobra}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{obras.ano}" sortBy="#{obras.ano}" >
+										 <f:facet name="header">
+										<h:outputText value="Ano"/>
+										</f:facet>
+										 <h:outputText value="#{obras.ano}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{obras.argumento}" sortBy="#{obras.argumento}" >
+										 <f:facet name="header">
+										<h:outputText value="Argumento"/>
+										</f:facet>
+										 <h:outputText value="#{obras.argumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{obras.critica}" sortBy="#{obras.critica}" >
+										 <f:facet name="header">
+										<h:outputText value="Critica"/>
+										</f:facet>
+										 <h:outputText value="#{obras.critica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{obras.titulo}" sortBy="#{obras.titulo}" >
+										 <f:facet name="header">
+										<h:outputText value="Titulo"/>
+										</f:facet>
+										 <h:outputText value="#{obras.titulo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{obras.idautor_Autores}" sortBy="#{obras.idautor_Autores}" >
+										 <f:facet name="header">
+										<h:outputText value="Idautor_Autores"/>
+										</f:facet>
+										 <h:outputText value="#{obras.idautor_Autores}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{obras.idepoca_Epoca}" sortBy="#{obras.idepoca_Epoca}" >
+										 <f:facet name="header">
+										<h:outputText value="Idepoca_Epoca"/>
+										</f:facet>
+										 <h:outputText value="#{obras.idepoca_Epoca}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{obras.idgenero_Genero}" sortBy="#{obras.idgenero_Genero}" >
+										 <f:facet name="header">
+										<h:outputText value="Idgenero_Genero"/>
+										</f:facet>
+										 <h:outputText value="#{obras.idgenero_Genero}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogObras"
+										actionListener="#{obrasView.action_edit}">
+										<f:attribute name="selectedObras" value="#{obras}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{obrasView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedObras" value="#{obras}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{obrasView.action_new()}" update=":dialogObras" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogObras" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{obrasView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelObras" header="Obras">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdobra" value="Idobra"/>
+									 <p:inputText id="txtIdobra" binding="#{obrasView.txtIdobra}">
+									 <p:ajax update=":dialogObras" listener="#{obrasView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAno" value=" Ano"/>
+									<p:inputText id="txtAno" disabled="true" binding="#{obrasView.txtAno}"/>
+																		<h:outputText id="msgArgumento" value=" Argumento"/>
+									<p:inputText id="txtArgumento" disabled="true" binding="#{obrasView.txtArgumento}"/>
+																		<h:outputText id="msgCritica" value=" Critica"/>
+									<p:inputText id="txtCritica" disabled="true" binding="#{obrasView.txtCritica}"/>
+																		<h:outputText id="msgTitulo" value=" Titulo"/>
+									<p:inputText id="txtTitulo" disabled="true" binding="#{obrasView.txtTitulo}"/>
+																		<h:outputText id="msgIdautor_Autores" value=" Idautor_Autores"/>
+									<p:inputText id="txtIdautor_Autores" disabled="true" binding="#{obrasView.txtIdautor_Autores}"/>
+																		<h:outputText id="msgIdepoca_Epoca" value=" Idepoca_Epoca"/>
+									<p:inputText id="txtIdepoca_Epoca" disabled="true" binding="#{obrasView.txtIdepoca_Epoca}"/>
+																		<h:outputText id="msgIdgenero_Genero" value=" Idgenero_Genero"/>
+									<p:inputText id="txtIdgenero_Genero" disabled="true" binding="#{obrasView.txtIdgenero_Genero}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{obrasView.btnSave}" value="Save" action="#{obrasView.action_save()}" update=":dialogObras :frm:panelDataTableObras" />
+									<p:commandButton id="btnClear" value="Clear" action="#{obrasView.action_clear()}" update=":dialogObras" />
+									<p:commandButton id="btnExit" value="Exit" action="#{obrasView.action_closeDialog()}" update=":dialogObras" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

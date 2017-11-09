@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelObras" header="Obras">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdobra" value="Idobra"/>
+						 	<p:inputText id="txtIdobra" binding="#{obrasView.txtIdobra}">
+						 		<p:ajax update="panelObras,msg,panelBotones" listener="#{obrasView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgAno" value=" Ano"/>
+							<p:inputText id="txtAno" disabled="true" binding="#{obrasView.txtAno}"/>
+													<h:outputText id="msgArgumento" value=" Argumento"/>
+							<p:inputText id="txtArgumento" disabled="true" binding="#{obrasView.txtArgumento}"/>
+													<h:outputText id="msgCritica" value=" Critica"/>
+							<p:inputText id="txtCritica" disabled="true" binding="#{obrasView.txtCritica}"/>
+													<h:outputText id="msgTitulo" value=" Titulo"/>
+							<p:inputText id="txtTitulo" disabled="true" binding="#{obrasView.txtTitulo}"/>
+													<h:outputText id="msgIdautor_Autores" value=" Idautor_Autores"/>
+							<p:inputText id="txtIdautor_Autores" disabled="true" binding="#{obrasView.txtIdautor_Autores}"/>
+													<h:outputText id="msgIdepoca_Epoca" value=" Idepoca_Epoca"/>
+							<p:inputText id="txtIdepoca_Epoca" disabled="true" binding="#{obrasView.txtIdepoca_Epoca}"/>
+													<h:outputText id="msgIdgenero_Genero" value=" Idgenero_Genero"/>
+							<p:inputText id="txtIdgenero_Genero" disabled="true" binding="#{obrasView.txtIdgenero_Genero}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{obrasView.btnSave}" disabled="true" value="Save" action="#{obrasView.action_save()}" update="panelObras, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{obrasView.btnDelete}" disabled="true" value="Delete" action="#{obrasView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelObras, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{obrasView.action_clear()}" update="panelObras, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelGenero" header="Genero">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdgenero" value="Idgenero"/>
+						 	<p:inputText id="txtIdgenero" binding="#{generoView.txtIdgenero}">
+						 		<p:ajax update="panelGenero,msg,panelBotones" listener="#{generoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgGenero" value=" Genero"/>
+							<p:inputText id="txtGenero" disabled="true" binding="#{generoView.txtGenero}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{generoView.btnSave}" disabled="true" value="Save" action="#{generoView.action_save()}" update="panelGenero, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{generoView.btnDelete}" disabled="true" value="Delete" action="#{generoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGenero, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{generoView.action_clear()}" update="panelGenero, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelEpoca" header="Epoca">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdepoca" value="Idepoca"/>
+						 	<p:inputText id="txtIdepoca" binding="#{epocaView.txtIdepoca}">
+						 		<p:ajax update="panelEpoca,msg,panelBotones" listener="#{epocaView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgEpoca" value=" Epoca"/>
+							<p:inputText id="txtEpoca" disabled="true" binding="#{epocaView.txtEpoca}"/>
+													<h:outputText id="msgTiempocompren" value=" Tiempocompren"/>
+							<p:inputText id="txtTiempocompren" disabled="true" binding="#{epocaView.txtTiempocompren}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{epocaView.btnSave}" disabled="true" value="Save" action="#{epocaView.action_save()}" update="panelEpoca, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{epocaView.btnDelete}" disabled="true" value="Delete" action="#{epocaView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelEpoca, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{epocaView.action_clear()}" update="panelEpoca, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

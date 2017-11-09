@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/11/2017 05:00:25 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="demo.modelo.Autores" table="autores" catalog="bd_persona" optimistic-lock="version">
+        <id name="idautor" type="java.lang.Integer">
+            <column name="idautor" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="epoca" class="demo.modelo.Epoca" fetch="select">
+            <column name="refepoca" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="autor" type="java.lang.String">
+            <column name="autor" not-null="true" unique="true" />
+        </property>
+        <property name="anonacimiento" type="java.lang.Integer">
+            <column name="anonacimiento" not-null="true" />
+        </property>
+        <property name="anofallecimiento" type="java.lang.Integer">
+            <column name="anofallecimiento" not-null="true" />
+        </property>
+        <property name="lugarnaci" type="java.lang.String">
+            <column name="lugarnaci" not-null="true" />
+        </property>
+        <property name="vida" type="java.lang.String">
+            <column name="vida" length="65535" not-null="true" />
+        </property>
+        <property name="estilo" type="java.lang.String">
+            <column name="estilo" length="65535" not-null="true" />
+        </property>
+        <set name="obrases" table="obras" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="refautor" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="demo.modelo.Obras" />
+        </set>
+    </class>
+</hibernate-mapping>

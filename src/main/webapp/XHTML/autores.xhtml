@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelAutores" header="Autores">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdautor" value="Idautor"/>
+						 	<p:inputText id="txtIdautor" binding="#{autoresView.txtIdautor}">
+						 		<p:ajax update="panelAutores,msg,panelBotones" listener="#{autoresView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgAnofallecimiento" value=" Anofallecimiento"/>
+							<p:inputText id="txtAnofallecimiento" disabled="true" binding="#{autoresView.txtAnofallecimiento}"/>
+													<h:outputText id="msgAnonacimiento" value=" Anonacimiento"/>
+							<p:inputText id="txtAnonacimiento" disabled="true" binding="#{autoresView.txtAnonacimiento}"/>
+													<h:outputText id="msgAutor" value=" Autor"/>
+							<p:inputText id="txtAutor" disabled="true" binding="#{autoresView.txtAutor}"/>
+													<h:outputText id="msgEstilo" value=" Estilo"/>
+							<p:inputText id="txtEstilo" disabled="true" binding="#{autoresView.txtEstilo}"/>
+													<h:outputText id="msgLugarnaci" value=" Lugarnaci"/>
+							<p:inputText id="txtLugarnaci" disabled="true" binding="#{autoresView.txtLugarnaci}"/>
+													<h:outputText id="msgVida" value=" Vida"/>
+							<p:inputText id="txtVida" disabled="true" binding="#{autoresView.txtVida}"/>
+													<h:outputText id="msgIdepoca_Epoca" value=" Idepoca_Epoca"/>
+							<p:inputText id="txtIdepoca_Epoca" disabled="true" binding="#{autoresView.txtIdepoca_Epoca}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{autoresView.btnSave}" disabled="true" value="Save" action="#{autoresView.action_save()}" update="panelAutores, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{autoresView.btnDelete}" disabled="true" value="Delete" action="#{autoresView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelAutores, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{autoresView.action_clear()}" update="panelAutores, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

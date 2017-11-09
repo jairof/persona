@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/11/2017 05:00:25 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="demo.modelo.Obras" table="obras" catalog="bd_persona" optimistic-lock="version">
+        <id name="idobra" type="java.lang.Integer">
+            <column name="idobra" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="autores" class="demo.modelo.Autores" fetch="select">
+            <column name="refautor" not-null="true" unique="true" />
+        </many-to-one>
+        <many-to-one name="epoca" class="demo.modelo.Epoca" fetch="select">
+            <column name="refepoca" not-null="true" unique="true" />
+        </many-to-one>
+        <many-to-one name="genero" class="demo.modelo.Genero" fetch="select">
+            <column name="refgenero" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="titulo" type="java.lang.String">
+            <column name="titulo" not-null="true" unique="true" />
+        </property>
+        <property name="ano" type="java.lang.Integer">
+            <column name="ano" not-null="true" />
+        </property>
+        <property name="critica" type="java.lang.String">
+            <column name="critica" length="65535" not-null="true" />
+        </property>
+        <property name="argumento" type="java.lang.String">
+            <column name="argumento" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

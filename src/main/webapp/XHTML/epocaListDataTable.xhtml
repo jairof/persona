@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableEpoca" header="EpocaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{epocaView.data}" var="epoca"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{epoca.idepoca}" sortBy="#{epoca.idepoca}" >
+										 <f:facet name="header">
+										<h:outputText value="idepoca"/>
+										</f:facet>
+										 <h:outputText value="#{epoca.idepoca}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{epoca.epoca}" sortBy="#{epoca.epoca}" >
+										 <f:facet name="header">
+										<h:outputText value="Epoca"/>
+										</f:facet>
+										 <h:outputText value="#{epoca.epoca}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{epoca.tiempocompren}" sortBy="#{epoca.tiempocompren}" >
+										 <f:facet name="header">
+										<h:outputText value="Tiempocompren"/>
+										</f:facet>
+										 <h:outputText value="#{epoca.tiempocompren}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogEpoca"
+										actionListener="#{epocaView.action_edit}">
+										<f:attribute name="selectedEpoca" value="#{epoca}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{epocaView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedEpoca" value="#{epoca}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{epocaView.action_new()}" update=":dialogEpoca" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogEpoca" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{epocaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelEpoca" header="Epoca">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdepoca" value="Idepoca"/>
+									 <p:inputText id="txtIdepoca" binding="#{epocaView.txtIdepoca}">
+									 <p:ajax update=":dialogEpoca" listener="#{epocaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEpoca" value=" Epoca"/>
+									<p:inputText id="txtEpoca" disabled="true" binding="#{epocaView.txtEpoca}"/>
+																		<h:outputText id="msgTiempocompren" value=" Tiempocompren"/>
+									<p:inputText id="txtTiempocompren" disabled="true" binding="#{epocaView.txtTiempocompren}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{epocaView.btnSave}" value="Save" action="#{epocaView.action_save()}" update=":dialogEpoca :frm:panelDataTableEpoca" />
+									<p:commandButton id="btnClear" value="Clear" action="#{epocaView.action_clear()}" update=":dialogEpoca" />
+									<p:commandButton id="btnExit" value="Exit" action="#{epocaView.action_closeDialog()}" update=":dialogEpoca" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+
